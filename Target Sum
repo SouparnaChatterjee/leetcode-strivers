@@ -1,0 +1,24 @@
+#include <bits/stdc++.h> 
+int targetSum(int n, int target, vector<int>& arr) {
+    // Write your code here.
+    unordered_map<int,int> dp;
+    unordered_map<int,int> next;
+    dp[arr[0]]++;
+    dp[-arr[0]]++;
+    for(int i=1;i<n;i++)
+    {
+        next.clear();
+        for(auto it:dp)
+        {
+            int key=it.first;
+            int val=it.second;
+            //next of index is incremented by val
+            next[key+arr[i]] += val;
+            next[key-arr[i]] += val;
+        }
+        dp=next;
+    }
+    return dp[target];
+}
+
+
